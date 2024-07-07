@@ -76,6 +76,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           # only publish from main branch and don't publish on forks
-          push: ${{ github.ref == 'refs/heads/main' && ! github.event.pull_request.head.repo.fork }}
+          #push: ${{ github.ref == 'refs/heads/main' && ! github.event.pull_request.head.repo.fork }}
+          # only publish from main branch and publish from forks
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ghcr.io/${{ github.repository }}/${{ matrix.image }}:latest
           file: ${{ matrix.dockerfile }}
