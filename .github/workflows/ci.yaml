@@ -5,6 +5,12 @@ on:
       - main
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: 'Force Matrix rebuild'
+        required: false
+        default: 'false'
 
 jobs:
   check_templated_files:
@@ -35,10 +41,13 @@ jobs:
             echo "Diff between origin/${{ github.event.pull_request.base.sha }} and $GITHUB_SHA"
             git fetch origin ${{ github.event.pull_request.base.sha }} --depth=1
             export DIFF=$( git diff --name-only ${{ github.event.pull_request.base.sha }} $GITHUB_SHA )
-          else
+          elif [ "${{ github.event_name }}" = "push" ] && [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "Diff between ${{ github.event.before }} and $GITHUB_SHA"
             git fetch origin ${{ github.event.before }} --depth=1
             export DIFF=$( git diff --name-only ${{ github.event.before }} $GITHUB_SHA )
+          elif [ "${{ github.event.inputs.rebuild }}" = "true" ]; then
+            echo "Matrix rebuild"
+            export DIFF=$( find platforms -name Dockerfile )
           fi
           echo "$DIFF" | tee changed_files.txt
 
