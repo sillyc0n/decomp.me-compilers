@@ -841,7 +841,7 @@ compilers:
   - id: msc6.00
     platform: msdos
     template: common/default
-    file: https://gitlab.com/sillyc0n/decompme-compilers-binaries/-/raw/master/msc600.tar.gz
+    file: https://github.com/sillyc0n/decomp.me-compilers/releases/download/msc6.00/msc600.tar.gz
 
 # WIN32
   - id: msvc6.0
