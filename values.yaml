@@ -842,7 +842,10 @@ compilers:
     platform: msdos
     template: common/default
     file: https://github.com/sillyc0n/decomp.me-compilers/releases/download/msc6.00/msc600.tar.gz
-
+  - id: msc5.00
+    platform: msdos
+    template: common/default
+    file: https://github.com/sillyc0n/decomp.me-compilers/releases/download/msc5.00/msc500.tar.gz
 # WIN32
   - id: msvc6.0
     platform: win32
