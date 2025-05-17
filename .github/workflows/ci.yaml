@@ -41,7 +41,7 @@ jobs:
             echo "Diff between origin/${{ github.event.pull_request.base.sha }} and $GITHUB_SHA"
             git fetch origin ${{ github.event.pull_request.base.sha }} --depth=1
             export DIFF=$( git diff --name-only ${{ github.event.pull_request.base.sha }} $GITHUB_SHA )
-          elif [ "${{ github.event_name }}" = "push" ] && [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          elif [ "${{ github.event_name }}" = "push" ]; then
             echo "Diff between ${{ github.event.before }} and $GITHUB_SHA"
             git fetch origin ${{ github.event.before }} --depth=1
             export DIFF=$( git diff --name-only ${{ github.event.before }} $GITHUB_SHA )
@@ -84,9 +84,7 @@ jobs:
       - name: Build and push to Github registry
         uses: docker/build-push-action@v5
         with:
-          # only publish from main branch and don't publish on forks
-          #push: ${{ github.ref == 'refs/heads/main' && ! github.event.pull_request.head.repo.fork }}
-          # only publish from main branch and publish from forks
-          push: ${{ github.ref == 'refs/heads/ms' }}
+          # ✅ Push only from main or ms branch
+          push: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/ms' }}
           tags: ghcr.io/${{ github.repository }}/${{ matrix.image }}:latest
           file: ${{ matrix.dockerfile }}
