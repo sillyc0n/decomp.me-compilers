@@ -940,6 +940,11 @@ compilers:
     platform: msdos
     template: common/default
     file: https://github.com/sillyc0n/decomp.me-compilers/releases/download/msc5.00/msc5.00.tar.gz
+  - id: masm5.1
+    platform: msdos
+    template: common/default
+    file: https://github.com/sillyc0n/decomp.me-compilers/releases/download/masm5.1/masm5.1.tar.gz
+    
 # WIN32
   - id: msvc6.0
     platform: win32
